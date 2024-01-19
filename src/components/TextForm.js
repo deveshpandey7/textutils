@@ -20,6 +20,23 @@ export default function TextForm(props) {
     setText(event.target.value)
    }
 
+   const handleCopy = ()=>{
+    console.log("I am copy")
+    var text = document.getElementById("myBox")
+    text.select();
+    navigator.clipboard.writeText(text.value);
+   }
+
+   const handleExtraSpace =()=>{
+    let newText = text.split(/[ ]+/); // removing space and making an array of words
+    setText(newText.join(" "))
+   }
+
+   const handleClearClick = ()=>{
+    let newText = " ";
+    setText(newText)
+   }
+
 
   const [text, setText] = useState('Enter text here2')
   // text = "new text"; // wrong way to change state
@@ -30,10 +47,13 @@ export default function TextForm(props) {
 <div className='container'>
 <h1>{props.heading} </h1>
 <div className="mb-3">
-<textarea className="form-control" value={text} onChange={handleOnChange} id="myBox" rows="8"></textarea>
+<textarea className="form-control" value={text} onChange={handleOnChange} style={{backgroundColor:props.mode==='light'?'grey':'white'}} id="myBox" rows="8"></textarea>
 </div>
-<button className='btn btn-primary mx-2' onClick={handleUpClick}>Convert to Upper Case</button>
-<button className='btn btn-primary mx-2' onClick={handleLoClick}>Convert to Lower Case</button>
+<button className='btn btn-primary mx-2' onClick={handleUpClick}>Convert to UpperCase</button>
+<button className='btn btn-primary mx-2' onClick={handleLoClick}>Convert to LowerCase</button>
+<button className='btn btn-primary mx-2' onClick={handleClearClick}>Clear Text </button>
+<button className='btn btn-primary mx-2' onClick={handleCopy}>Copy Text </button>
+<button className='btn btn-primary mx-2' onClick={handleExtraSpace}>Remove Extra space </button>
 </div>
 <div className="container my-3">
   <h2>Your text summary</h2>
